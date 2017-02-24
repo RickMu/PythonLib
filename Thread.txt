@@ -1,0 +1,77 @@
+Python 3:
+	_thread : same as thread in python2
+	
+	kept method:
+		- _thread.start_new_thread( function, (args)[, kwargs] )
+		
+			args of a function needs to be inside a tuple
+	
+
+Py3 Suggested way:
+	- use threading, useful methods:
+	
+		1.threading.currentThread() returns the current thread
+		2. threading.enumerate() returns a iterable list of threads, currently running
+		3. threading.activeCount() returns the number of threads active.
+		
+	- Inherit threading.Thread to override methods:
+		1. run()
+		2. start()
+		3. isAlive()
+		4. getName/setName ()
+		5. join([time]) : join stops the main program and waits for this thread to terminate
+	
+	-threading.lock(): concepts of locking data to prevent inconsistent retreival \
+		e.g.
+			lock= threading.lock()
+			lock.acquire()
+				.............		#a function, or even a Queue will not be accessible by another thread
+				.............
+			lock.release()
+			
+			
+	
+	example
+	
+	
+	class myThread (threading.Thread):
+	
+		def __init__(self, threadID, name, counter):
+		
+			threading.Thread.__init__(self)
+			
+			self.threadID = threadID
+			self.name = name
+			self.counter = counter
+			
+		def run(self):
+			print ("开始线程：" + self.name)
+			print_time(self.name, self.counter, 5)
+			print ("退出线程：" + self.name)
+
+	def print_time(threadName, delay, counter):
+		while counter:
+			if exitFlag:
+				threadName.exit()
+			time.sleep(delay)
+			print ("%s: %s" % (threadName, time.ctime(time.time())))
+			counter -= 1
+	
+	thread1 = myThread(1, "Thread-1", 1)
+	thread2 = myThread(2, "Thread-2", 2)
+
+	# 开启新线程
+	thread1.start()
+	thread2.start()
+	
+	thread1.join()
+	thread2.join()
+	
+	print ("退出主线程")
+	
+	
+	
+			
+			
+			
+	
