@@ -1,0 +1,19 @@
+import configparser
+
+	This library reads  Config.conf files
+
+Example is the best for understanding this:
+
+To read a .conf files:
+	
+	config = configparser.ConfigParser()
+	config.read("Configuration.conf")
+	
+Useful functions:
+	- config.sections(): returns a list of all sections
+	- config.options("section1"): returns a list of all options under section1
+	- config.items("section1"): returns a [('option1', 'value1'),(' option2','value2'),()] 
+		#all strings
+		
+	-config.get("section1", "option1) : returns "value1"
+	-config.getint / config.getfloat / config.getboolean
